@@ -1,0 +1,11 @@
+@use "../../global" as g;
+
+// ベンダーファイルの上書きのため、!importantを許容
+.swiper{
+  $this: &;
+  &__ELEMENT{
+    #{$this}__ELEMENT{
+      
+    }
+  }
+}

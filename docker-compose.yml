@@ -1,0 +1,55 @@
+version: "3.9"
+services:
+  wp_vite_db:
+    image: mysql:8.0
+    container_name: wp_vite_mysql8
+    restart: always
+    volumes:
+      - type: volume
+        source: wp_vite_db
+        target: "/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT} # rootユーザのパスワード
+      MYSQL_DATABASE: ${DB_NAME} # WordPress用データベース名
+      MYSQL_USER: ${DB_USER} # WordPress用データベース接続ユーザ名
+      MYSQL_PASSWORD: ${DB_PASS} # WordPress用データベース接続パスワード
+    ports:
+      - "9307:3306"
+  wp_vite_wordpress:
+    depends_on:
+      - wp_vite_db
+    build:
+      context: .
+      dockerfile: WpcliDockerfile
+    container_name: wp_vite_wordpress
+    restart: always
+    ports:
+      - 10195:80
+    environment:
+      WORDPRESS_DB_HOST: wp_vite_db:3306 # データベースサーバ名：ポート番号
+      WORDPRESS_DB_USER: ${DB_USER} # WordPress用データベース接続ユーザ名(dbの内容に合わせる)
+      WORDPRESS_DB_PASSWORD: ${DB_PASS} # WordPress用データベース接続パスワード(dbの内容に合わせる)
+      WORDPRESS_DB_NAME: ${DB_NAME} # WordPress用データベース名(dbの内容に合わせる)
+      WORDPRESS_DEBUG: 1 # デバッグモードON
+    volumes:
+      - type: bind
+        source: "./wp-data/wp-vite"
+        target: "/var/www/html/wp-content/themes/wp-vite"
+      - type: volume
+        source: wp_vite_node_modules_volume
+        target: "/var/www/html/wp-content/themes/wp-vite/node_modules"
+      - type: bind
+        source: "./php.ini"
+        target: "/usr/local/etc/php/php.ini"
+      - type: bind
+        source: "./wp-install.sh"
+        target: "/tmp/wp-install.sh"
+      - type: bind
+        source: "./.editorconfig"
+        target: "/var/www/html/wp-content/themes/wp-vite/.editorconfig"
+      - type: bind
+        source: "./.vscode/settings.json"
+        target: "/var/www/html/wp-content/themes/wp-vite/.vscode/settings.json"
+volumes:
+  wp_vite_db:
+  wp_vite_node_modules_volume:

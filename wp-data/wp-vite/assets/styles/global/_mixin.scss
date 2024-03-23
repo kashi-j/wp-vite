@@ -1,0 +1,113 @@
+@use "sass:math";
+
+// アニメーション
+@mixin keyframes($animation-name) {
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+@mixin animation($animation-name) {
+  -webkit-animation: $animation-name;
+  animation: $animation-name;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+// ホバー・アクティブ
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover{
+      @content;
+    }
+  }
+  @media (hover: none) {
+    &:active{
+      @content;
+    }
+  }
+}
+
+// メディアクエリ
+@mixin media($mode) {
+  @if( $mode == pc ){
+    @media screen and (min-width: 768px) {
+      @content;
+    }
+  } @else if( $mode == tab ){
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if( $mode == sp ) {
+    @media screen and (max-width: 767px) {
+      @content;
+    }
+  } @else {
+    @media screen and ($mode) {
+      @content;
+    }
+  }
+}
+
+//フォントサイズ
+@mixin fz($size, $base: 16) {
+  font-size: $size + px;
+  font-size: calc($size / $base) + rem;
+}
+
+// クランプ
+@mixin clamp($num) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num;
+}
+
+// 影
+@mixin shadow() {
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.05);
+}
+
+// 数値のみ出力
+// 同じ単位同士だと除算することで単位が出力されなくなる
+@function strip-unit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+
+@mixin vw($property, $min-vp, $min-length, $max-vp, $max-length, $vp-unit: 'vw') {
+  // unit(値＋単位) → ”単位”
+  $u01: unit($min-vp);
+  $u02: unit($min-length);
+  $u03: unit($max-vp);
+  $u04: unit($max-length);
+
+  // strip-unit(値＋単位) → ”値”
+  $x1: strip-unit($min-vp);
+  $y1: strip-unit($min-length);
+  $x2: strip-unit($max-vp);
+  $y2: strip-unit($max-length);
+
+  // 判定条件：画面幅とプロパティの単位が揃っていること
+  @if $u01 == $u03 and $u02 == $u04 {
+    @if $y1 > $y2 {
+      $a: calc(($y2 + $y1) / ($x2 - $x1) * 100);
+      $b: calc(($x2 * $y1 - $x1 * $y2) / ($x2 - $x1));      
+      // clamp関数を使って最小値と最大値を指定する
+      #{$property}: clamp(#{$max-length}, #{$a}#{$vp-unit} + #{$b}#{$u02}, #{$min-length});
+    } @else {
+      $a: calc(($y2 - $y1) / ($x2 - $x1) * 100);
+      $b: calc(($x2 * $y1 - $x1 * $y2) / ($x2 - $x1));
+      // clamp関数を使って最小値と最大値を指定する
+      #{$property}: clamp(#{$min-length}, #{$a}#{$vp-unit} + #{$b}#{$u02}, #{$max-length});
+    }
+  }
+}
+
+@mixin excludeArticle($selectors) {
+  // 引数に渡されたセレクタのリストをループで処理する
+  @each $selector in $selectors {
+    // 引数に渡されたセレクタに対してスタイルを適用する
+    #{$selector}:where(:not(.l-article__content #{$selector})) {
+      @content;
+    }
+  }
+}

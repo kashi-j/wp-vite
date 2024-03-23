@@ -1,0 +1,11 @@
+node_nodules
+wp-data/wp-vite/dist
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+.maintenance
+
+# envファイルは別途共有
+.env

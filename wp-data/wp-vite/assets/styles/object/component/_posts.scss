@@ -1,0 +1,10 @@
+@use "../../global" as g;
+
+.c-posts{
+  $this: &;
+  &__ELEMENT{
+    #{$this}__ELEMENT{
+      
+    }
+  }
+}

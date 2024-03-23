@@ -1,0 +1,10 @@
+@use "../../global" as g;
+
+.p-faq{
+  $this: &;
+  &__ELEMENT{
+    #{$this}__ELEMENT{
+      
+    }
+  }
+}

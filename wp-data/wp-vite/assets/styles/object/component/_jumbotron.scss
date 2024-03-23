@@ -1,0 +1,9 @@
+@use "../../global" as g;
+.c-jumbotron{
+  $this: &;
+  &__ELEMENT{
+    #{$this}__ELEMENT{
+      
+    }
+  }
+}; 

@@ -1,0 +1,29 @@
+@use "../global" as g;
+.l-main{
+  $this: &;
+  &__ELEMENT{
+    #{$this}__ELEMENT{
+      
+    }
+  }
+}
+
+.l-article{
+  $this: &;
+  &__ELEMENT{
+    #{$this}__ELEMENT{
+      
+    }
+  }
+  &__content{
+  }
+}
+
+.l-section{
+  $this: &;
+  &__ELEMENT{
+    #{$this}__ELEMENT{
+      
+    }
+  }
+}

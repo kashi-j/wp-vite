@@ -1,0 +1,10 @@
+@use "../../global" as g;
+
+.p-error404{
+  $this: &;
+  &__ELEMENT{
+    #{$this}__ELEMENT{
+      
+    }
+  }
+}

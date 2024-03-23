@@ -1,0 +1,190 @@
+@charset "utf-8";
+@use "../global" as g;
+
+@font-face {
+  font-display: swap;
+  font-family: "Noto Sans JP";
+  font-style: normal;
+  font-weight: 400;
+  src: url($base-dir + '/vender/fonts/noto-sans-jp-v52-japanese_latin-regular.woff2')
+    format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Noto Sans JP';
+  font-style: normal;
+  font-weight: 500;
+  src: url($base-dir + "vender/fonts/noto-sans-jp-v52-japanese_latin-500.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Noto Sans JP";
+  font-style: normal;
+  font-weight: 700;
+  src: url($base-dir + "vender/fonts/noto-sans-jp-v52-japanese_latin-700.woff2")
+    format("woff2");
+}
+
+.hoge{
+  font-family: Noto Sans JP;
+}
+.hoge1{
+  font-family: Noto Sans JP;
+  font-weight: 700;
+}
+.hoge2{
+  font-family: Noto Sans JP;
+  font-weight: 500;
+}
+
+*:where(:not(.l-article__content *)) {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Noto Sans JP,YuGothic, "游ゴシック体", "游ゴシック", "Yu Gothic", sans-serif;
+  font-weight: 400;
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+
+body {
+  height: 100%;
+  @include g.animation(fadeIn 2s ease 0s 1 normal);
+}
+
+a {
+  &:where(:not(.l-article__content *)){
+    text-decoration: none;
+    color: #333;
+    user-select: none;
+    cursor: pointer;
+    @include g.hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+ul,
+li {
+  &:where(:not(.l-article__content *)){
+    list-style: none;
+  }
+}
+
+img {
+  &:where(:not(.l-article__content *)){
+    vertical-align: bottom;
+    height: auto;
+    width: 100%;
+  }
+}
+
+button {
+  &:where(:not(.l-article__content *)){
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    user-select: none;
+  }
+}
+
+button:focus-visible {
+  &:where(:not(.l-article__content *)){
+    outline: none;
+  }
+}
+
+input {
+  &:where(:not(.l-article__content *)){
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+input:focus,
+input:focus-visible {
+  &:where(:not(.l-article__content *)){
+    outline: none;
+  }
+}
+
+/* チェックボックス */
+input[type="checkbox"] {
+  &:where(:not(.l-article__content *)){
+    display: none;
+  }
+}
+
+/* ラジオボタン */
+input[type="radio"] {
+  &:where(:not(.l-article__content *)){
+    display: none;
+  }
+}
+
+// セレクトボックス
+select {
+  &:where(:not(.l-article__content *)){
+    cursor: pointer;
+    /* デフォルトの矢印を非表示 */
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+select::-ms-expand {
+  /* デフォルトの矢印を非表示(IE用) */
+  display: none;
+}
+
+select:focus-visible {
+  outline: none;
+}
+
+// テキストエリア
+textarea:focus-visible {
+  outline: none;
+}
+
+sup {
+  &:where(:not(.l-article__content *)){
+    vertical-align: super;
+    font-size: small;
+  }
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}

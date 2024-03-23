@@ -1,0 +1,29 @@
+@use "../../global/" as g;
+.u-sp-only{
+  @include g.media(pc){
+    display: none;
+  }
+}
+.u-pc-only{
+  @include g.media(sp){
+    display: none;
+  }
+}
+.u-text-lowercase{
+  text-transform: lowercase;
+}
+
+.u-break-keep {
+  word-break: keep-all;
+}
+
+.u-mt-0{
+  margin-top: 0;
+}
+
+.u-cl-must{
+  color: #E50000;
+}
+.u-cl-strong{
+  color: #F9E31E;
+}

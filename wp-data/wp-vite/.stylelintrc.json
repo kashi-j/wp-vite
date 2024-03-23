@@ -1,0 +1,12 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "at-rule-empty-line-before": null,
+    "media-feature-range-notation": null,
+    "rule-empty-line-before": null,
+    "scss/double-slash-comment-empty-line-before": null
+  },
+  "ignoreFiles": [
+		"assets/styles/foundation/_reset.scss"
+	]
+}
